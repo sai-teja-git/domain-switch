@@ -29,6 +29,7 @@ export class ViewPageComponent {
 
   pushData() {
     sessionStorage.setItem(this.key, this.value)
+    localStorage.setItem(this.key, this.value)
     this.clear()
   }
 
@@ -36,8 +37,16 @@ export class ViewPageComponent {
     sessionStorage.clear()
   }
 
+  clearLocal() {
+    localStorage.clear()
+  }
+
   get sessionLength() {
     return sessionStorage.length
+  }
+
+  get localLength() {
+    return localStorage.length
   }
 
   get sessionKeys() {
@@ -45,8 +54,17 @@ export class ViewPageComponent {
     return data
   }
 
+  get localKeys() {
+    const { length, ...data } = localStorage
+    return data
+  }
+
   deleteSessionKey(key: string) {
     sessionStorage.removeItem(key)
+  }
+
+  deleteLocalKey(key: string) {
+    localStorage.removeItem(key)
   }
 
   get currentHost() {
