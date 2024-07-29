@@ -1,4 +1,4 @@
 export const environment = {
-    BASE_ORIGIN: "https://localhost:4200",
-    APP_ORIGIN: "http://localhost:4400",
+    BASE_ORIGIN: "https://domain-switch-base.onrender.com",
+    APP_ORIGIN: "https://domain-switch-app.onrender.com",
 };
