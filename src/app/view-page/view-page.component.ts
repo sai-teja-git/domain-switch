@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../environments/environment.development';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-view-page',
@@ -18,9 +19,15 @@ export class ViewPageComponent {
   key = "";
   value = "";
 
+  constructor(
+    private readonly cookieService: CookieService
+  ) { }
+
   ngOnInit() {
     this.updatePageTitle()
+    this.getCookies()
   }
+
 
   clear() {
     this.key = "";
@@ -30,6 +37,7 @@ export class ViewPageComponent {
   pushData() {
     sessionStorage.setItem(this.key, this.value)
     localStorage.setItem(this.key, this.value)
+    this.cookieService.set(this.key, this.value, (15 * 60 * 1000))
     this.clear()
   }
 
@@ -41,12 +49,27 @@ export class ViewPageComponent {
     localStorage.clear()
   }
 
+  clearCookies() {
+    this.cookieService.deleteAll()
+  }
+
+  getCookies() {
+    console.log("cookies", this.cookies)
+  }
+
   get sessionLength() {
     return sessionStorage.length
   }
 
   get localLength() {
     return localStorage.length
+  }
+
+  get cookieLength() {
+    try {
+      return Object.keys(this.cookieService.getAll()).length
+    } catch { }
+    return 0
   }
 
   get sessionKeys() {
@@ -59,12 +82,23 @@ export class ViewPageComponent {
     return data
   }
 
+  get cookies() {
+    try {
+      return this.cookieService.getAll()
+    } catch { }
+    return {}
+  }
+
   deleteSessionKey(key: string) {
     sessionStorage.removeItem(key)
   }
 
   deleteLocalKey(key: string) {
     localStorage.removeItem(key)
+  }
+
+  deleteCookie(key: string) {
+    this.cookieService.delete(key)
   }
 
   get currentHost() {

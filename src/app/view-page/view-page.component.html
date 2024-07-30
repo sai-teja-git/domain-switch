@@ -1,6 +1,6 @@
 <div class="row m-0">
     <h3>{{currentHost}}</h3>
-    <div class="col-6">
+    <div class="col-4">
         <div class="card mt-3 p-3">
             <form class="row m-0">
                 <div class="form-group col-6">
@@ -18,9 +18,11 @@
                 <div class="col-12 mt-3 d-flex justify-content-between">
                     <div>
                         <button class="btn btn-outline-danger me-2" [disabled]="!sessionLength"
-                            (click)="clearSession()">Clear Session</button>
-                        <button class="btn btn-outline-danger" [disabled]="!localLength" (click)="clearLocal()">Clear
-                            Local</button>
+                            (click)="clearSession()"><i class="bi bi-trash"></i> Session</button>
+                        <button class="btn btn-outline-danger me-2" [disabled]="!localLength" (click)="clearLocal()"><i
+                                class="bi bi-trash"></i> Local</button>
+                        <button class="btn btn-outline-danger me-2" [disabled]="!cookieLength"
+                            (click)="clearCookies()"><i class="bi bi-trash"></i> Cookies</button>
                     </div>
                     <div>
                         <button class="btn btn-outline-secondary me-2" (click)="clear()"
@@ -35,9 +37,9 @@
             <button class="btn btn-secondary" (click)="goToApp()">Goto</button>
         </div>
     </div>
-    <div class="col-6">
+    <div class="col-8">
         <div class="row">
-            <div class="col-6">
+            <div class="col-4">
                 <div class="p-3">
                     <h4>Session</h4>
                     <ol class="list-group list-group-numbered">
@@ -55,11 +57,29 @@
                     </ol>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-4">
                 <div class="p-3">
                     <h4>Local</h4>
                     <ol class="list-group list-group-numbered">
                         @for (item of localKeys|keyvalue; track $index) {
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Key : {{item.key}}</div>
+                                Value : {{item.value}}
+                            </div>
+                            <span class="badge text-bg-danger rounded-pill" type="button"
+                                (click)="deleteLocalKey(item.key)">Delete</span>
+                        </li>
+                        }
+
+                    </ol>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="p-3">
+                    <h4>Cookies</h4>
+                    <ol class="list-group list-group-numbered">
+                        @for (item of cookies|keyvalue; track $index) {
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold">Key : {{item.key}}</div>
