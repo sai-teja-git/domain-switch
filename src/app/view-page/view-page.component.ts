@@ -37,8 +37,8 @@ export class ViewPageComponent {
   pushData() {
     sessionStorage.setItem(this.key, this.value)
     localStorage.setItem(this.key, this.value)
-    this.cookieService.set(this.key, this.value, (15 * 60 * 1000), "", "https://domain-switch-base.onrender.com/")
-    this.cookieService.set(this.key, this.value, (15 * 60 * 1000), "", "https://domain-switch-app.onrender.com/")
+    this.cookieService.set(this.key, this.value, (15 * 60 * 1000), "", "https://domain-switch-base.onrender.com")
+    this.cookieService.set(this.key, this.value, (15 * 60 * 1000), "", "https://domain-switch-app.onrender.com")
     this.clear()
   }
 
